@@ -405,8 +405,8 @@ public class KProgressHUD {
 
         private void updateBackgroundSize() {
             ViewGroup.LayoutParams params = mBackgroundLayout.getLayoutParams();
-            params.width = Helper.dpToPixel(mWidth, getContext());
-            params.height = Helper.dpToPixel(mHeight, getContext());
+            params.width = mWidth;
+            params.height = mHeight;
             mBackgroundLayout.setLayoutParams(params);
         }
 
