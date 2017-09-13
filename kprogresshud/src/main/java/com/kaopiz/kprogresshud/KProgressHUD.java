@@ -299,6 +299,16 @@ public class KProgressHUD {
         return this;
     }
 
+    /**
+     * Specify background padding. If you don't want padding, pass 0(zero)
+     * @param padding background padding in pixels
+     * @return Current HUD
+     */
+    public KProgressHUD setPadding(int padding) {
+        mProgressDialog.setPadding(padding);
+        return this;
+    }
+
     public KProgressHUD show() {
         if (!isShowing()) {
             mFinished = false;
@@ -348,6 +358,7 @@ public class KProgressHUD {
         private int mWidth, mHeight;
         private int mLabelColor = Color.WHITE;
         private int mDetailColor = Color.WHITE;
+        private int mPadding = Helper.dpToPixel(16, mContext);
 		
         public ProgressDialog(Context context) {
             super(context);
@@ -376,6 +387,7 @@ public class KProgressHUD {
             mBackgroundLayout = (BackgroundLayout) findViewById(R.id.background);
             mBackgroundLayout.setBaseColor(mWindowColor);
             mBackgroundLayout.setCornerRadius(mCornerRadius);
+            mBackgroundLayout.setPadding(mPadding, mPadding, mPadding, mPadding);
             if (mWidth != 0) {
                 updateBackgroundSize();
             }
@@ -493,6 +505,10 @@ public class KProgressHUD {
             if (mBackgroundLayout != null) {
                 updateBackgroundSize();
             }
+        }
+
+        public void setPadding(int padding) {
+            mPadding = padding;
         }
     }
 }
