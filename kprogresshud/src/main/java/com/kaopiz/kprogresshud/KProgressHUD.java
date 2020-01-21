@@ -16,6 +16,7 @@
 
 package com.kaopiz.kprogresshud;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -310,7 +311,7 @@ public class KProgressHUD {
     }
 
     public KProgressHUD show() {
-        if (!isShowing()) {
+        if (!isShowing() && !((Activity) mContext).isFinishing()) {
             mFinished = false;
             if (mGraceTimeMs == 0) {
                 mProgressDialog.show();
@@ -335,7 +336,7 @@ public class KProgressHUD {
 
     public void dismiss() {
         mFinished = true;
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+        if (mProgressDialog != null && mProgressDialog.isShowing() && !((Activity)mContext).isFinishing() && ((Activity) mContext).hasWindowFocus()) {
             mProgressDialog.dismiss();
         }
         if (mGraceTimer != null) {
