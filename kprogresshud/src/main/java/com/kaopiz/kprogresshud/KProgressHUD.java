@@ -336,8 +336,17 @@ public class KProgressHUD {
 
     public void dismiss() {
         mFinished = true;
-        if (mProgressDialog != null && mProgressDialog.isShowing() && !((Activity)mContext).isFinishing() && ((Activity) mContext).hasWindowFocus()) {
-            mProgressDialog.dismiss();
+        Activity activity = ((Activity) mContext);
+        if (mProgressDialog != null && mProgressDialog.isShowing() && !activity.isFinishing()) {
+            Window window = activity.getWindow();
+            if (window == null) {
+                return;
+            }
+            View decor = window.getDecorView();
+            if (decor != null && decor.getParent() != null) {
+                mProgressDialog.dismiss();
+            }
+
         }
         if (mGraceTimer != null) {
             mGraceTimer.removeCallbacksAndMessages(null);
